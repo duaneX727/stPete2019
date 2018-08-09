@@ -4,6 +4,8 @@
     ViewData["Title"] = "Home page";
 }
 
+<h4>@Model.Message</h4>
+@*
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -94,3 +96,34 @@
         </ul>
     </div>
 </div>
+*@
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Edit</th>
+            </tr>
+            <tbody>
+                @foreach (var member in Model.Members)
+                {
+                    <tr>
+                        <td>@member.Id</td>
+                        <td>@member.Name</td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@member.Id">edit</a>
+
+                            <button type="submit" asp-page-handler="delete"
+                                    asp-route-id="@member.Id">delete</button>
+                        </td>
+                    </tr>
+
+                }
+                
+            </tbody>
+        </thead>
+    </table>
+    <a asp-page="./Create">Create</a>
+</form>

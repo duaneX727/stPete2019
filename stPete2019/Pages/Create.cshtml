@@ -1,0 +1,19 @@
+﻿@page
+@model stPete2019.Pages.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_validationScriptsPartial");}
+}
+
+<p>Enter the family member's name:</p>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>Name: <input asp-for="Member.Name" /></div>
+    <input type="submit"/>
+
+</form>
