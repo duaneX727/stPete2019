@@ -4,13 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace stPete2019.Pages
 {
     public class CreateModel : PageModel
     {
         private readonly AppDbContext _db;
-        public CreateModel(AppDbContext db) {_db = db;}
+
+        private ILogger<CreateModel> Log;
+
+        public CreateModel(AppDbContext db, ILogger<CreateModel> log)
+        {
+            _db = db;
+            Log = log;
+        }
         [TempData]
         public string Message { get; set; }
         [BindProperty]
@@ -23,7 +31,9 @@ namespace stPete2019.Pages
             }
             _db.Members.Add(Member);
             await _db.SaveChangesAsync();
-            Message = $"Member: {Member.Name} added succesfully!";
+            var msg = $"Member: {Member.Name} added successfully!";
+            Message = msg;
+            Log.LogCritical(msg);
             return RedirectToPage("/Index");
         }
     }
